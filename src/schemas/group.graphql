@@ -9,6 +9,6 @@ extend input UpdateGroupInput {
 }
 
 extend type Group {
-  "A list of the account permissions implied by membership in this group"
+  "A list of the account permissions implied by membership in this group (2)"
   permissions: [String]
 }

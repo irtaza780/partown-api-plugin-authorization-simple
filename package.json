@@ -1,7 +1,7 @@
 {
-  "name": "@reactioncommerce/api-plugin-authorization-simple",
+  "name": "@partown/partown-api-plugin-authorization-simple",
   "description": "Simple Authorization plugin for the Reaction API",
-  "version": "0.0.0-development",
+  "version": "1.0.0-development",
   "main": "index.js",
   "type": "module",
   "homepage": "https://github.com/reactioncommerce/api-plugin-authorization-simple",

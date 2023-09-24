@@ -18,14 +18,22 @@ const GLOBAL_GROUP = "__global_roles__";
  *   only global permissions will be checked.
  * @returns {Boolean} - true/false
  */
-export default async function hasPermission(context, resource, action, authContext) {
+export default async function hasPermission(
+  context,
+  resource,
+  action,
+  authContext
+) {
   const { userPermissions } = context;
 
+  console.log("user permissions are ", userPermissions);
   if (!userPermissions) return false;
 
-  if (!resource) throw new ReactionError("invalid-param", "Resource must be provided");
+  if (!resource)
+    throw new ReactionError("invalid-param", "Resource must be provided");
 
-  if (!action) throw new ReactionError("invalid-param", "Action must be provided");
+  if (!action)
+    throw new ReactionError("invalid-param", "Action must be provided");
 
   const { owner: resourceOwner, shopId } = authContext || {};
 
@@ -34,11 +42,22 @@ export default async function hasPermission(context, resource, action, authConte
   if (resourceOwner && resourceOwner === context.userId) return true;
 
   // Parse the provided data to create the permission name to check against (<organization>:<system>:<entity>/<action>)
-  const permissionName = `${resource.split(":").splice(0, 3).join(":")}/${action}`;
+  const permissionName = `${resource
+    .split(":")
+    .splice(0, 3)
+    .join(":")}/${action}`;
 
+  console.log("permission name is ", permissionName);
   // make sure shopId is a non-empty string (if provided)
-  if (shopId !== undefined && shopId !== null && (typeof shopId !== "string" || shopId.length === 0)) {
-    throw new ReactionError("invalid-param", "shopId must be a non-empty string");
+  if (
+    shopId !== undefined &&
+    shopId !== null &&
+    (typeof shopId !== "string" || shopId.length === 0)
+  ) {
+    throw new ReactionError(
+      "invalid-param",
+      "shopId must be a non-empty string"
+    );
   }
 
   // we create an array with the provided permission
@@ -46,19 +65,36 @@ export default async function hasPermission(context, resource, action, authConte
 
   // always check GLOBAL_GROUP
   const globalPermissions = userPermissions[GLOBAL_GROUP];
-  if (Array.isArray(globalPermissions) && checkPermissions.some((permission) => globalPermissions.includes(permission))) return true;
+  if (
+    Array.isArray(globalPermissions) &&
+    checkPermissions.some((permission) =>
+      globalPermissions.includes(permission)
+    )
+  )
+    return true;
 
   if (shopId) {
     const shopPermissions = userPermissions[shopId];
-    if (Array.isArray(shopPermissions) && checkPermissions.some((permission) => shopPermissions.includes(permission))) return true;
+    if (
+      Array.isArray(shopPermissions) &&
+      checkPermissions.some((permission) =>
+        shopPermissions.includes(permission)
+      )
+    )
+      return true;
   }
 
-  Logger.debug({
-    requestedPermissions: checkPermissions,
-    permissions: context.userPermissions,
-    shopId,
-    userId: context.userId
-  }, `User ${context.userId} has none of [${checkPermissions.join(", ")}] permissions`);
+  Logger.debug(
+    {
+      requestedPermissions: checkPermissions,
+      permissions: context.userPermissions,
+      shopId,
+      userId: context.userId,
+    },
+    `User ${context.userId} has none of [${checkPermissions.join(
+      ", "
+    )}] permissions`
+  );
 
   return false;
 }

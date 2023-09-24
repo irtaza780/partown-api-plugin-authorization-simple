@@ -84,12 +84,31 @@ export const defaultShopManagerRoles = [
   "reaction:legacy:taxRates/create",
   "reaction:legacy:taxRates/delete",
   "reaction:legacy:taxRates/read",
-  "reaction:legacy:taxRates/update"
+  "reaction:legacy:taxRates/update",
+
+  //additional product delete role
+  "reaction:legacy:products/remove",
+  //reports roles
+  "reaction:legacy:reports/read",
+  "reaction:legacy:reports/edit",
+  "reaction:legacy:reports/remove",
+
+  // rates roles
+  "reaction:legacy:rates/read",
+  "reaction:legacy:rates/edit",
+  "reaction:legacy:rates/remove",
+  //permissions roles
+  "reaction:legacy:permissions/read",
+  "reaction:legacy:permissions/edit",
+  "reaction:legacy:permissions/remove",
+
+  //quotes
+  
 ];
 
 export const defaultShopOwnerRoles = [
   ...defaultShopManagerRoles,
-  "reaction:legacy:shops/create"
+  "reaction:legacy:shops/create",
 ];
 
 export const defaultAccountsManagerRoles = [
@@ -103,8 +122,10 @@ export const defaultAccountsManagerRoles = [
   "reaction:legacy:accounts/remove:address-books",
   "reaction:legacy:accounts/update:address-books",
   "reaction:legacy:accounts/update:currency",
-  "reaction:legacy:accounts/update:language"
+  "reaction:legacy:accounts/update:language",
 ];
+
+export const shopOwnerRoles = []
 
 export const defaultSystemManagerRoles = [
   ...defaultAccountsManagerRoles,
@@ -118,5 +139,5 @@ export const defaultSystemManagerRoles = [
   "reaction:legacy:groups/update",
   "reaction:legacy:shops/create",
   "reaction:legacy:shops/read",
-  "reaction:legacy:invitations/read"
+  "reaction:legacy:invitations/read",
 ];

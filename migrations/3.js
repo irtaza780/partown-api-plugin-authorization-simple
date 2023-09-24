@@ -10,6 +10,7 @@ async function up({ db, progress }) {
   const affectedGroups = [
     "owner",
     "shop manager"
+    
   ];
 
   const newShopPermissions = [
